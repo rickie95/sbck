@@ -1,0 +1,4 @@
+.pytestcache/**
+**/.pytestcache/**
+**/*.egg-info/*
+**/__pycache__/**

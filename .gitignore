@@ -1,5 +1,12 @@
+# PyTest
 .pytestcache/**
 **/.pytestcache/**
 **/*.egg-info/*
 **/__pycache__/**
+
+# Coverage.py
+htmlcov
+.Coverage
+
+# VsCode, Codium
 .vscode

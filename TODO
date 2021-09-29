@@ -1,0 +1,6 @@
+- aggiungere e configurare log
+- configurare GitHub actions
+- Un job è una raccolta di task.
+- Un job ha una sua periodicità e un suo orario di avvio
+- Un task ha una sorgente e una destinazione
+- Un task ha delle opzioni di filtraggio (per cartella, per estensione)

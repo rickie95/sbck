@@ -31,6 +31,6 @@ class Job:
 
     def copy_files(self, filelist):
         for file in filelist:
-            dest_path = os.path.join(self.__dest_, file)
-            Path(os.path.split(dest_path)[0]).mkdir(parents=True, exist_ok=True)
-            shutil.copy2(os.path.join(self.__src__, file), dest_path)
+            dest_path = Path.joinpath(self.__dest__, file)
+            Path(dest_path.parent).mkdir(parents=True, exist_ok=True)
+            shutil.copy2(str(Path.joinpath(self.__src__, file)), str(dest_path))

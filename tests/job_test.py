@@ -39,8 +39,10 @@ def test_copy_file_in_dest_directory(tmp_path):
     file.write_text("Foo content")
 
     job = Job(source, dest)
-    job.copy_files(job.create_filelist())
-
+    filelist = job.create_filelist()
+    job.copy_files()
+    
+    assert len(filelist) == 1
     assert Path.exists(dest / "file.txt"), "Path doesn't exist"
     assert Path.is_file(dest / "file.txt"), "Path exist but it's not a file"
     assert (dest / "file.txt").read_text() == "Foo content", "File content is corrupt or unavailable"

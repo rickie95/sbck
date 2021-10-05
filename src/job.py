@@ -10,27 +10,28 @@ class Job:
         - `destination_path` is the base path of where the content of `source_path` will be copied. Note: `destination_path` must exists.
     """
 
-    __dest__ = ""
-    __src__ = ""
-
     def __init__(self, source_path, destination_path):
-        self.__src__ = source_path
-        self.__dest__ = destination_path
+        self.__src = source_path
+        self.__dest = destination_path
+        self.__filelist = []
 
     def create_filelist(self):
-        filelist = []
-        for (root, dirs, files) in os.walk(self.__src__):
-            relative_path = os.path.relpath(root, self.__src__)
+        for (root, dirs, files) in os.walk(self.__src):
+            relative_path = os.path.relpath(root, self.__src)
         
             for file in files:
                 if relative_path == ".":
-                    filelist.append(file)
+                    self.__filelist.append(file)
                 else:
-                    filelist.append(os.path.join(relative_path, file))
-        return filelist
+                    self.__filelist.append(os.path.join(relative_path, file))
+        return self.__filelist
 
-    def copy_files(self, filelist):
-        for file in filelist:
-            dest_path = Path.joinpath(self.__dest__, file)
+    def copy_files(self):
+        assert len(self.__filelist) != 0
+        assert self.__src != None
+        assert self.__dest != None
+
+        for file in self.__filelist:
+            dest_path = Path.joinpath(self.__dest, file)
             Path(dest_path.parent).mkdir(parents=True, exist_ok=True)
-            shutil.copy2(str(Path.joinpath(self.__src__, file)), str(dest_path))
+            shutil.copy2(str(Path.joinpath(self.__src, file)), str(dest_path))

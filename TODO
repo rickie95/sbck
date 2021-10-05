@@ -1,3 +1,4 @@
+- test se dest è sul subpath di src
 - aggiungere e configurare log
 - configurare GitHub actions
 - Un job è una raccolta di task.

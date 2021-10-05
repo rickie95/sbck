@@ -11,12 +11,15 @@ class Job:
     """
 
     def __init__(self, source_path, destination_path):
+        if source_path == destination_path:
+            raise SamePathException
+
         self.__src = source_path
         self.__dest = destination_path
         self.__filelist = []
 
     def create_filelist(self):
-        for (root, dirs, files) in os.walk(self.__src):
+        for (root, _, files) in os.walk(self.__src):
             relative_path = os.path.relpath(root, self.__src)
         
             for file in files:
@@ -35,3 +38,9 @@ class Job:
             dest_path = Path.joinpath(self.__dest, file)
             Path(dest_path.parent).mkdir(parents=True, exist_ok=True)
             shutil.copy2(str(Path.joinpath(self.__src, file)), str(dest_path))
+
+class SamePathException(Exception):
+    MESSAGE = "Source and destination are the same path."
+
+    def __init__(self, *args: object) -> None:
+        super().__init__(SamePathException.MESSAGE)

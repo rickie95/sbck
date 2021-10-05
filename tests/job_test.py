@@ -1,7 +1,14 @@
+import pytest
+
 from pathlib import Path
-from src.job import Job
+from src.job import Job, SamePathException
 
 CONTENT = "content"
+
+def test_create_job_with_src_equal_to_dest_should_raise_err(tmp_path):
+    with pytest.raises(SamePathException) as e_info:
+        job = Job(tmp_path, tmp_path)
+    assert str(e_info.value) == SamePathException.MESSAGE
 
 def test_include_file_with_ext_in_filelist(tmp_path):
     """ 
